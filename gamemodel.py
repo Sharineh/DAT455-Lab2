@@ -11,10 +11,12 @@ class Game:
         
         self.ballSize = ballSize
         
+        # Initilaize two players with different x position and color
         self.players = [Player(self, False, -90, "blue"), Player(self, True, 90, "red")]
         
         self.cuurentPlayerIndex = 0
         
+        # Initilaize wind speed to a random float between [-10 10]
         self.wind = (random.random()*20) -10
         
         
@@ -106,6 +108,7 @@ class Player:
     """ Create and return a projectile starting at the centre of this players cannon. Replaces any previous projectile for this player. """
     def fire(self, angle, velocity):
         
+        # Check if it is the player on the right
         if self.isReversed == True:
             
             cannon_ball = Projectile(180-angle, velocity ,self.game.getCurrentWind(),self.getX(),self.game.getCannonSize()/2,-110,110)
@@ -123,31 +126,39 @@ class Player:
 
     """ Gives the x-distance from this players cannon to a projectile. If the cannon and the projectile touch (assuming the projectile is on the ground and factoring in both cannon and projectile size) this method should return 0"""
     def projectileDistance(self, proj):
-
+        
+        # If it is the player on the right turn
         if self.isReversed:
             
+            # Distance if the projctile landed before the target
             if proj.getX() - self.game.getBallSize() > self.getX() + (self.game.getCannonSize()/2):
                 
                 distance = (proj.getX() - self.game.getBallSize()) - (self.getX() + (self.game.getCannonSize()/2))
                 
+            # Distance if the projctile landed after the target    
             elif proj.getX() + self.game.getBallSize() < self.getX() - (self.game.getCannonSize())/2:
                 
                 distance = (proj.getX() + self.game.getBallSize()) - (self.getX() - (self.game.getCannonSize()/2))
-            
+                
+            # Distance is zero if the projectile hits the target        
             else:
                 
-                distance = 0 
-            
+                distance = 0
+                 
+        # Left player's turn    
         else:
             
+            # Distance if the projctile landed before the target
             if proj.getX() + self.game.getBallSize() < self.getX() - (self.game.getCannonSize()/2):
                 
                 distance = (self.getX() - (self.game.getCannonSize()/2)) - (proj.getX() + (self.game.getCannonSize()/2))
                 
+            # Distance if the projctile landed after the target    
             elif proj.getX() - self.game.getBallSize() > self.getX() + (self.game.getCannonSize()/2):
                 
                 distance = (proj.getX() - self.game.getBallSize()) - (self.getX() + (self.game.getCannonSize()/2)) 
-            
+                
+            # Distance is zero if the projectile hits the target
             else:
                 
                 distance = 0 
