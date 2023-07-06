@@ -2,8 +2,6 @@ from math import sin,cos,radians
 
 import random
 
-#TODO: Deal with all TODOs in this file and also remove the TODO and HINT comments.
-
 """ This is the model of the game"""
 class Game:
     """ Create a game with a given size of cannon (length of sides) and projectiles (radius) """
@@ -49,7 +47,7 @@ class Game:
         
         elif self.getCurrentPlayer() == self.getPlayers()[1]:
         
-            return   self.getPlayers()[0] #TODO: this is just a dummy value
+            return   self.getPlayers()[0] 
         
     
     
@@ -58,7 +56,6 @@ class Game:
         
         return self.cuurentPlayerIndex
     
-        #return self.getPlayers #TODO: this is just a dummy value
     
     """ Switch active player """
     def nextPlayer(self):
@@ -68,8 +65,8 @@ class Game:
             self.cuurentPlayerIndex = 0
             
         else:
+            
             self.cuurentPlayerIndex = 1
-        #pass #TODO: this should do something instead of nothing
 
     """ Set the current wind speed, only used for testing """
     def setCurrentWind(self, wind):
@@ -82,10 +79,7 @@ class Game:
 
     """ Start a new round with a random wind value (-10 to +10) """
     def newRound(self):
-        #HINT: random.random() gives a random value between 0 and 1
-        # multiplying this by 20 gives a random value between 0 and 20
-        # how do you shift a value between 0 and 20 to one between -10 and +10?
-        
+
         wind = (random.random()*20) -10
         
         self.setCurrentWind(wind)
@@ -114,9 +108,11 @@ class Player:
         
         if self.isReversed == True:
             
-            angle = 180-angle
+            cannon_ball = Projectile(180-angle, velocity ,self.game.getCurrentWind(),self.getX(),self.game.getCannonSize()/2,-110,110)
             
-        cannon_ball = Projectile(angle, velocity ,self.game.getCurrentWind(),self.getX(),self.game.getCannonSize()/2,-110,110)
+        else:
+            cannon_ball = Projectile(angle, velocity ,self.game.getCurrentWind(),self.getX(),self.game.getCannonSize()/2,-110,110)
+
         
         self.lastAngle = angle
         
@@ -127,10 +123,7 @@ class Player:
 
     """ Gives the x-distance from this players cannon to a projectile. If the cannon and the projectile touch (assuming the projectile is on the ground and factoring in both cannon and projectile size) this method should return 0"""
     def projectileDistance(self, proj):
-        # HINT: both self (a Player) and proj (a Projectile) have getX()-methods.
-        # HINT: This method should give a negative value if the projectile missed to the left and positive if it missed to the right.
-        # The distance should be how far the projectile and cannon are from touching, not the distance between their centers.
-        # You probably need to use getCannonSize and getBallSize from Game to compensate for the size of cannons/cannonballs
+
         if self.isReversed:
             
             if proj.getX() - self.game.getBallSize() > self.getX() + (self.game.getCannonSize()/2):
@@ -159,10 +152,6 @@ class Player:
                 
                 distance = 0 
             
-        """ if proj.getX() == self.getX() or proj.getX() == self.getX() - self.game.getCannonSize() or proj.getX() == self.getX() + self.game.getCannonSize():
-            
-            distance == 0  """
-            
         return distance
             
 
@@ -178,11 +167,13 @@ class Player:
 
     """ Returns the color of this player (a string)"""
     def getColor(self):
-        return self.color #TODO: this is just a dummy value
+        
+        return self.color 
 
     """ The x-position of the centre of this players cannon """
     def getX(self):
-        return self.position #TODO: this is just a dummy value
+        
+        return self.position 
 
     """ The angle and velocity of the last projectile this player fired, initially (45, 40) """
     def getAim(self):
