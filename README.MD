@@ -7,6 +7,7 @@ This is the solution of the sceond lab in the course DAT455 that is given at Cha
     
 2) Run the docker image :
    1) If using linux enable x11 by running: 
+
       xhost + 
    2) Run the docke image by using the following command:
 
